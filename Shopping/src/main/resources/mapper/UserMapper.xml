@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiahe.dao.UserDao">
+
+	<insert id="insert" parameterType="User">
+		insert into user
+		values( #{id}, #{email}, #{nickname}, #{password}, #{permission}, #{code}, #{time})
+	</insert>
+
+	<delete id="delete" parameterType="User">
+		delete from user where
+		email = #{email}
+	</delete>
+
+	<update id="update" parameterType="User">
+		update user set nickname = #{nickname}, password = #{password}, permission = #{permission},
+		code = #{code}, time = #{time}
+		where email = #{email}
+	</update>
+
+	<select id="select" parameterType="User" resultType="User">
+		select * from user
+		where email = #{email}
+	</select>
+
+	<select id="selects" resultType="User">
+		select * from user ${array[0]} 
+	</select>
+
+</mapper>

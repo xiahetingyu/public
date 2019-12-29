@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiahe.dao.ProxyEDao">
+
+    <insert id="insert" parameterType="ProxyE">
+        insert into proxye
+        values (#{id}, #{proxye}, #{ip}, #{port}, #{ver}, #{other}, #{time})
+    </insert>
+
+    <delete id="delete" parameterType="ProxyE">
+        delete
+        from proxye
+        where id = #{id}
+    </delete>
+
+    <update id="update" parameterType="ProxyE">
+        update proxye
+        set ver= #{ver},
+            other = #{other},
+            time = #{time}
+        where id = #{id}
+    </update>
+
+    <select id="select" parameterType="ProxyE" resultType="ProxyE">
+        select *
+        from proxye
+        where id = #{id}
+    </select>
+
+    <select id="selects" resultType="ProxyE">
+        select *
+        from proxye p ${array[0]}
+    </select>
+
+</mapper>

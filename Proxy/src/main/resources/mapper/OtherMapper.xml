@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiahe.dao.OtherDao">
+
+    <insert id="insert" parameterType="Other">
+        insert into other
+        values (#{id}, #{username}, #{balance}, #{count}, #{other}, #{time})
+    </insert>
+
+    <delete id="delete" parameterType="Other">
+        delete
+        from other
+        where id = #{id}
+    </delete>
+
+    <update id="update" parameterType="Other">
+        update other
+        set username= #{username},
+            balance = #{balance},
+            count   = #{count},
+            other   = #{other},
+            time    = #{time}
+        where id = #{id}
+    </update>
+
+    <select id="select" parameterType="Other" resultType="Other">
+        select *
+        from other
+        where id = #{id}
+    </select>
+
+    <select id="selects" resultType="Other">
+        select *
+        from other ${array[0]}
+    </select>
+
+</mapper>

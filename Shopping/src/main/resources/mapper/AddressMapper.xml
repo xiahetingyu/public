@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiahe.dao.AddressDao">
+
+	<insert id="insert" parameterType="Address">
+		insert into address
+		values( #{id}, #{email}, #{nickname}, #{name}, #{local}, #{zip}, #{phone}, #{other}, #{time})
+	</insert>
+
+	<delete id="delete" parameterType="Address">
+		delete from address where
+		id = #{id}
+	</delete>
+
+	<update id="update" parameterType="Address">
+		update address set nickname = #{nickname}, local = #{local}, zip = #{zip}, phone = #{phone}, other = #{other},  time = #{time}
+		where id = #{id}
+	</update>
+
+	<select id="select" parameterType="Address" resultType="Address">
+		select * from address
+		where id = #{id}
+	</select>
+
+	<select id="selects" resultType="Address">
+		select * from address  ${array[0]} 
+	</select>
+
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiahe.dao.OrderrDao">
+
+    <insert id="insert" parameterType="Orderr">
+        insert into orderr
+        values (#{id}, #{username}, #{count}, #{amount}, #{status}, #{other}, #{time})
+    </insert>
+
+    <delete id="delete" parameterType="Orderr">
+        delete
+        from orderr
+        where id = #{id}
+    </delete>
+
+    <update id="update" parameterType="Orderr">
+        update orderr
+        set username= #{username},
+            count   = #{count},
+            amount  = #{amount},
+            status  = #{status},
+            other   = #{other},
+            time    = #{time}
+        where id = #{id}
+    </update>
+
+    <select id="select" parameterType="Orderr" resultType="Orderr">
+        select *
+        from orderr
+        where id = #{id}
+    </select>
+
+    <select id="selects" resultType="Orderr">
+        select *
+        from orderr ${array[0]}
+    </select>
+
+</mapper>

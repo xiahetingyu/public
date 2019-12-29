@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiahe.dao.ProductDao">
+
+	<insert id="insert" parameterType="Product">
+		insert into product
+		values(#{id}, #{c_id}, #{name}, #{author}, #{cover}, #{press}, #{press_date}, #{edition}, 
+		#{print_date}, #{impression}, #{isbn}, #{word_num}, #{page_num}, #{size},  #{paper}, #{pack},
+		#{price}, #{dprice}, #{create_date}, #{editor_recommend}, #{content_abstract}, #{author_abstract},
+		#{director}, #{media_commentary}, #{sale}, #{stock}, #{time} )
+	</insert>
+	
+	<delete id="delete" parameterType="Product">
+		delete from product
+		where id = #{id} 
+	</delete>
+	
+	<update id="update" parameterType="Product">
+		update product
+		set c_id=#{c_id}, name=#{name}, author=#{author}, cover=#{cover}, press=#{press}, 
+		press_date=#{press_date}, edition=#{edition}, print_date=#{print_date}, impression=#{impression},
+		isbn=#{isbn}, word_num=#{word_num}, page_num=#{page_num}, size=#{size},  paper=#{paper}, 
+		pack=#{pack}, price=#{price}, dprice=#{dprice}, editor_recommend=#{editor_recommend}, 
+		content_abstract=#{content_abstract}, author_abstract=#{author_abstract}, director=#{director},
+		media_commentary=#{media_commentary}, sale=#{sale}, stock=#{stock}, time=#{time}
+		where id = #{id} 
+	</update>
+	
+	<select id="select" parameterType="Product" resultType="Product">
+		select * from product
+		where id = #{id}
+	</select>
+	
+	<select id="selects" resultType="Product">
+		select * from product  ${array[0]} 
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="selectps" resultType="Product">
+		select * from (
+			select p.id pid, p.p pp, p.level plevel, p.name pname, p.time ptime,
+			c.id cid, c.p cp, c.level clevel, c.name cname, c.time ctime, pr.*
+			from clazz p inner join clazz c on p.id=c.p inner join product pr
+			on c.id=pr.c_id ${array[0]} ${array[1]}) t
+		${array[2]}
+	</select>
+
+</mapper>

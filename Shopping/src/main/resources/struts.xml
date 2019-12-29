@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN" "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+
+	<constant name="struts.multipart.maxSize" value="5000000" />
+
+	<package name="user" extends="struts-default" namespace="/user">
+		<action name="*" class="com.xiahe.action.UserAction" method="{1}">
+			
+			<!-- 管理员和用户登陆 -->
+			<result name="user">/front/user/login_form.jsp</result>
+			<result name="admin">/back/login.jsp</result>
+			<result name="usershow" type="redirectAction">
+				<param name="namespace">/product</param>
+				<param name="actionName">index</param>
+			</result>
+			<result name="adminshow" type="redirect">/back/main/main.jsp</result>
+			
+			<!-- 用户注册 -->
+			<result name="signup">/front/user/register_form.jsp</result>
+			<result name="verify_form.jsp">/front/user/verify_form.jsp</result>
+			<result name="register_ok.jsp">/front/user/register_ok.jsp</result>
+			
+			<!-- 后台用户管理 -->
+			<result name="show" type="redirectAction">show</result>
+			<result name="show.jsp">/back/user/show.jsp</result>
+			
+			<!-- 注销 -->
+			<result name="usersignin.jsp" type="redirect">/front/user/login_form.jsp</result>
+			<result name="adminsignin.jsp" type="redirect">/back/login.jsp</result>
+			<allowed-methods>regex:.*</allowed-methods>
+		</action>
+	</package>
+
+	<package name="clazz" extends="struts-default" namespace="/clazz">
+		<action name="*" class="com.xiahe.action.ClazzAction" method="{1}">
+			<result name="show" type="redirectAction">show</result>
+			<result name="show.jsp">/back/category/show.jsp</result>
+			<result name="add-second.jsp">/back/category/add-second.jsp</result>
+			<result name="add.jsp">/back/book/add.jsp</result>
+			<result name="update.jsp">/back/book/update.jsp</result>
+			<allowed-methods>regex:.*</allowed-methods>
+		</action>
+	</package>
+
+	<package name="product" extends="struts-default" namespace="/product">
+		<action name="*" class="com.xiahe.action.ProductAction" method="{1}">
+			<param name="upload">C:\Development\Temp\image\</param>
+			<result name="select" type="chain">
+				<param name="namespace">/clazz</param>
+				<param name="actionName">showClazz</param>
+			</result>
+			<result name="show" type="redirectAction">show</result>
+			<result name="show.jsp">/back/book/show.jsp</result>
+			<result name="main.jsp">/front/main/main.jsp</result>
+			<result name="list">/front/main/book_list.jsp</result>
+			<result name="detail">/front/main/book_detail.jsp</result>
+			<allowed-methods>regex:.*</allowed-methods>
+		</action>
+	</package>
+
+	<package name="image" extends="struts-default" namespace="/image">
+		<action name="*" class="com.xiahe.action.ImageAction" method="{1}">
+			<param name="floder">C:\Development\Temp\image\</param>
+			<allowed-methods>regex:.*</allowed-methods>
+		</action>
+	</package>
+	
+	
+	<package name="car" extends="struts-default" namespace="/car">
+		<action name="*" class="com.xiahe.action.CarAction" method="{1}">
+			<result name="cart_list.jsp">/front/cart/cart_list.jsp</result>
+			<allowed-methods>regex:.*</allowed-methods>
+		</action>
+	</package>
+	
+
+	<package name="order" extends="struts-default" namespace="/order">
+		<action name="*" class="com.xiahe.action.OrderAction" method="{1}">
+			<result name="order_info.jsp">/front/order/order_info.jsp</result>
+			<allowed-methods>regex:.*</allowed-methods>
+		</action>
+	</package>
+	
+	<package name="address" extends="struts-default" namespace="/address">
+		<interceptors>
+			<interceptor name="user" class="com.xiahe.action.UserInterceptor"/>
+			<interceptor-stack name="signin">
+				<interceptor-ref name="user"/>
+				<interceptor-ref name="defaultStack"/>
+			</interceptor-stack>
+		</interceptors>
+		<global-results>
+			<result name="signin">/front/user/login_form.jsp</result>
+		</global-results>
+		<action name="*" class="com.xiahe.action.AddressAction" method="{1}">
+			<interceptor-ref name="signin">
+				 <param name="includeMethods">show</param>
+			</interceptor-ref>
+			<result name="address_form.jsp">/front/order/address_form.jsp</result>
+			<result name="order_ok.jsp">/front/order/order_ok.jsp</result>
+			<allowed-methods>regex:.*</allowed-methods>
+		</action>
+	</package>
+
+</struts>

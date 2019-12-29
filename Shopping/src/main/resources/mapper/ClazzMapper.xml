@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiahe.dao.ClazzDao">
+
+	<insert id="insert" parameterType="Clazz">
+		insert into clazz
+		values( #{id}, #{p}, #{level}, #{name}, #{time})
+	</insert>
+
+	<delete id="delete" parameterType="Clazz">
+		delete from clazz where
+		id = #{id}
+	</delete>
+
+	<update id="update" parameterType="Clazz">
+		update clazz set p = #{p}, level = #{level}, name = #{name},  time = #{time}
+		where id = #{id}
+	</update>
+
+	<select id="select" parameterType="Clazz" resultType="Clazz">
+		select * from clazz
+		where id = #{id}
+	</select>
+
+	<select id="selects" resultType="Clazz">
+		select * from clazz  ${array[0]} 
+	</select>
+
+</mapper>
